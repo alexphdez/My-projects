@@ -1,0 +1,118 @@
+def arithmetic_arranger(problems, show_answers=False):
+    if len(problems)>5:
+        problems='Error: Too many problems.'
+
+    else:
+        if show_answers==False:
+            first_line=''
+            second_line=''
+            barra_line=''
+            for cuenta in problems:
+                operand1=[]
+                operand2=[]
+                sig=''
+                barra='--'
+                tradu_cuenta=str.maketrans({' ':''})
+                cuenta_final=cuenta.translate(tradu_cuenta)
+                for digit in cuenta_final:
+                    if digit.isdigit():
+                        pass
+                    elif digit=='+'or digit=='-':
+                        sig=digit         
+                    else:
+                        if digit.isalpha():
+                            problems='Error: Numbers must only contain digits.'
+                            return problems
+                        else:
+                            problems="Error: Operator must be '+' or '-'."
+                            return problems
+                cuenta_final=cuenta_final.split(sig)
+                operand1=list(cuenta_final[0])
+                operand2=list(cuenta_final[1])
+                if len(operand1)>4 or len(operand2)>4:
+                    problems='Error: Numbers cannot be more than four digits.'
+                    return problems
+                while len(operand1)<len(operand2):
+                    operand1.insert(0,'_')
+                while len(operand2)<len(operand1):
+                    operand2.insert(0,'_')
+    
+                operand1.insert(0,'__')
+                for _ in operand2:
+                    barra+='-'
+                operando_1=''.join(operand1).replace('_',' ')
+                operando_2=''.join(operand2).replace('_',' ')
+                first_line+=operando_1+'    '
+                second_line+=sig+' '+operando_2+'    '
+                barra_line+=barra+'    ' 
+            second_line='\n'+second_line
+            barra_line='\n'+barra_line
+            first_line=first_line.removesuffix('    ')
+            second_line=second_line.removesuffix('    ')
+            barra_line=barra_line.removesuffix('    ')
+            problems=first_line+second_line+barra_line
+        if show_answers==True:
+            first_line=''
+            second_line=''
+            barra_line=''
+            sum_line=''
+            for cuenta in problems:
+                operand1=[]
+                operand2=[]
+                sig=''
+                barra='--'
+                tradu_cuenta=str.maketrans({' ':''})
+                cuenta_final=cuenta.translate(tradu_cuenta)
+                for digit in cuenta_final:
+                    if digit.isdigit():
+                        pass
+                    elif digit=='+'or digit=='-':
+                        sig=digit         
+                    else:
+                        if digit.isalpha():
+                            problems='Error: Numbers must only contain digits.'
+                            return problems
+                        else:
+                            problems="Error: Operator must be '+' or '-'."
+                            return problems
+                cuenta_final=cuenta_final.split(sig)
+                if sig=='+':
+                    sum=int(cuenta_final[0])+int(cuenta_final[1])
+                    summander=list(str(sum))
+
+                else:
+                    sum=int(cuenta_final[0])-int(cuenta_final[1])
+                    summander=list(str(sum))
+                operand1=list(cuenta_final[0])
+                operand2=list(cuenta_final[1])
+                if len(operand1)>4 or len(operand2)>4:
+                    problems='Error: Numbers cannot be more than four digits.'
+                    return problems
+                while len(operand1)<len(operand2):
+                    operand1.insert(0,'_')
+                while len(operand2)<len(operand1):
+                    operand2.insert(0,'_')
+                operand1.insert(0,'__')
+                while len(summander)<len(operand1):
+                    summander.insert(0,'_')
+                summander.insert(0,'_')
+                for _ in operand2:
+                    barra+='-'
+                operando_1=''.join(operand1).replace('_',' ')
+                operando_2=''.join(operand2).replace('_',' ')
+                summander=''.join(summander).replace('_',' ')
+                first_line+=operando_1+'    '
+                second_line+=sig+' '+operando_2+'    '
+                barra_line+=barra+'    ' 
+                sum_line+=summander+'    '
+            second_line='\n'+second_line
+            barra_line='\n'+barra_line
+            sum_line='\n'+sum_line
+            first_line=first_line.removesuffix('    ')
+            second_line=second_line.removesuffix('    ')
+            barra_line=barra_line.removesuffix('    ')
+            sum_line=sum_line.removesuffix('    ')
+            problems=first_line+second_line+barra_line+sum_line
+            
+    return problems
+print(f'\n{arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "3 - 49"])}')
